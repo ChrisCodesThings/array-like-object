@@ -1,0 +1,48 @@
+{
+  "name": "@chriscodesthings/stub-repo",
+  "version": "0.1.0",
+  "description": "npm package template",
+  "keywords": [
+    "stub",
+    "package",
+    "template"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChrisCodesThings/stub-repo.git"
+  },
+  "main": "index.js",
+  "type": "module",
+  "files": [
+    "/CHANGELOG.md",
+    "/index.js",
+    "/src",
+    "/dist"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/ChrisCodesThings/stub-repo/issues"
+  },
+  "scripts": {
+    "test": "NODE_OPTIONS='--experimental-vm-modules' jest",
+    "version": "auto-changelog -p && git add CHANGELOG.md",
+    "postversion": "git push && git push --tags"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "auto-changelog": "^2.4.0",
+    "jest": "^29.7.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": {
+    "name": "Chris Dabrowa",
+    "email": "fanmail@chris.dabrowa.uk",
+    "url": "http://chris.dabrowa.uk/code"
+  },
+  "contributors": [],
+  "license": "MIT"
+}
