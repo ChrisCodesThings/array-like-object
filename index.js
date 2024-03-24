@@ -1,2 +1,2 @@
-export { default } from "./src/arrayLikeObject.js";
+export { default } from "./src/extensibleReadOnlyArray.js";
 
