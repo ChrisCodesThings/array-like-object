@@ -9,7 +9,8 @@ function handler(obj, allowList) {
     return {
         get(t, k, r) {
             if (typeof obj[k] === 'function') {
-                return (args) => { return obj[k].call(obj, args) };
+
+                return (...args) => { return obj[k].call(obj, ...args, t) };
             }
 
             if (typeof obj[k] !== 'undefined') {
