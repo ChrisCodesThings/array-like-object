@@ -7,7 +7,7 @@ describe("with a class", () => {
         foo = "bar";
 
         constructor() {
-            return testFunc(this.#arr, this, ["includes"]);
+            return testFunc(this.#arr, this);
         }
 
         hello() {
@@ -19,7 +19,6 @@ describe("with a class", () => {
         }
 
         addItem(item) {
-            console.log("the array", this.#arr);
             return this.#arr.push(item);
         }
     }
@@ -89,7 +88,7 @@ describe("with a class", () => {
             expect(testArray[0]).toEqual("a");
         });
 
-        test("array method", async () => {
+        test("forbidden array method", async () => {
             expect(() => { testArray.push("d") }).toThrow();
         });
     });
@@ -116,7 +115,7 @@ describe("with an object", () => {
         }
     }
 
-    const testArray = testFunc(["a", "b", "c"], arrHandler, ["includes"]);
+    const testArray = testFunc(["a", "b", "c"], arrHandler);
 
     describe("check array access", () => {
         test("the array", async () => {
@@ -181,14 +180,30 @@ describe("with an object", () => {
             expect(testArray[0]).toEqual("a");
         });
 
-        test("array method", async () => {
+        test("forbidden array method", async () => {
             expect(() => { testArray.push("d") }).toThrow();
         });
     });
 
-    describe("check allowed array method", () => {
-        test("includes", async () => {
+    describe("check customisation of allowed methods", () => {
+        test("allowed default method", async () => {
             expect(testArray.includes("a")).toEqual(true);
+        });
+
+        test("disallow default methods", async () => {
+            const testArray2 = testFunc(["a", "b", "c"], arrHandler, [], false);
+            expect(() => { testArray2.includes("a") }).toThrow();
+        });
+
+        test("disallow default methods, allow includes", async () => {
+            const testArray2 = testFunc(["a", "b", "c"], arrHandler, ["includes"], false);
+            expect(testArray2.includes("a")).toEqual(true);
+        });
+
+        test("allow reverse method", async () => {
+            const testArray2 = testFunc(["a", "b", "c"], arrHandler, ["reverse"]);
+            testArray2.reverse();
+            expect(testArray2).toEqual(["c", "b", "a"]);
         });
     });
 });
