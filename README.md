@@ -73,16 +73,18 @@ Returns a proxy attached to the original array.
 
 We can create an array that will only store people's names by using a handler object with a method to add a person to the array.
 
+> Note, within your code, you have full access to the array. 
+
 ```js
 import makeReadOnlyArray from '@chriscodesthings/extensible-read-only-array';
 
 const peopleHandler = {
     addPerson(first, last, age, arr) {
-        arr[arr.length] = {
+        arr.push({
             firstname: first,
             lastname: last,
             age: age
-        }
+        });
     }
 };
 
