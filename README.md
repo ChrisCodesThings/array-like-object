@@ -119,6 +119,16 @@ const testArray = new extendedReadOnlyArrayClass();
 
 ## Allowing Array Methods
 
+### Routing priority
+
+The proxy will route the request in the following order:
+
+1. A matching method in *obj*. This allows you to override any of the built in array methods.
+2. A matching property in *obj*. This allows you to override any of the built in array properties.
+3. If request is a number >= 0, an index from the array.
+4. If the request is in the allow list *(see below)*, the request is passed to the native array.
+5. Returns undefined.
+
 Access to the native array methods is divided into 3 categories.
 
 ### Always allowed
