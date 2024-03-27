@@ -22,27 +22,31 @@ The array can then be extended by providing an object or class containing your o
 npm install --save @chriscodesthings/extensible-read-only-array
 ```
 
-## Use
+## Usage
 
 ```js
 import makeReadOnlyArray from '@chriscodesthings/extensible-read-only-array';
 
 const numbers = makeReadOnlyArray([], {
-    next(arr) {
-        return arr.push(arr.length);
+    addSquareNumber(n, arr) {
+        return arr.push(n * n);
     }
 });
 
 console.log(numbers);
 // => []
 
-numbers.next();
-numbers.next();
-numbers.next();
+numbers.addSquareNumber(2);
+numbers.addSquareNumber(4);
+numbers.addSquareNumber(6);
 
 console.log(numbers);
-// => [ 0, 1, 2 ]
+// => [ 4, 16, 36 ]
 ```
+
+> Note, the array is always passed by the proxy as the last argument to the function.
+
+> Important! Do not return the array since this will allow direct access to it.
 
 ## Syntax
 
@@ -53,7 +57,7 @@ makeReadOnlyArray(arr, obj, allow, allowDefaults);
 ### Parameters
 
 - *arr*: the array to make read only
-- *obj*: your object containing methods/properties for to redirect to
+- *obj*: your object containing methods/properties to redirect to
 - *allow*: an array containing a list of array methods to allow
 - *allowDefaults*: Default `true`. If `false`, blocks access to the methods allowed by default. 
 
@@ -73,9 +77,7 @@ We can create an array that will only store people's names by using a handler ob
 import makeReadOnlyArray from '@chriscodesthings/extensible-read-only-array';
 
 const peopleHandler = {
-    addPerson(first, last, age) {
-        const arr = arguments.pop();
-
+    addPerson(first, last, age, arr) {
         arr[arr.length] = {
             firstname: first,
             lastname: last,
@@ -102,16 +104,18 @@ class extendedReadOnlyArrayClass {
     }
 
     addPerson(first, last, age) {
-        this.#arr[this.#arr.length] = {
+        this.#people.push({
             firstname: first,
             lastname: last,
             age: age
-        }
+        });
     }
 }
 
 const testArray = new extendedReadOnlyArrayClass();
 ```
+
+> Remember! Even though it isn't used, the array is still passed as the last argument to the function.
 
 ## Allowing Array Methods
 
@@ -138,7 +142,7 @@ There is little point in excluding access to these methods since they could easi
 - `findIndex`
 - `findLast`
 - `findLastIndex`
-- `orEach`
+- `forEach`
 - `includes`
 - `indexOf`
 - `join`
