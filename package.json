@@ -1,15 +1,16 @@
 {
-  "name": "@chriscodesthings/stub-repo",
+  "name": "@chriscodesthings/extensible-read-only-array",
   "version": "0.1.0",
-  "description": "npm package template",
+  "description": "Creates a read only array, allowing extension with custom methods",
   "keywords": [
-    "stub",
-    "package",
-    "template"
+    "extensible",
+    "read",
+    "only",
+    "array"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ChrisCodesThings/stub-repo.git"
+    "url": "git+https://github.com/ChrisCodesThings/extensible-read-only-array.git"
   },
   "main": "index.js",
   "type": "module",
@@ -23,7 +24,7 @@
     "node": ">=18.0.0"
   },
   "bugs": {
-    "url": "https://github.com/ChrisCodesThings/stub-repo/issues"
+    "url": "https://github.com/ChrisCodesThings/extensible-read-only-array/issues"
   },
   "scripts": {
     "test": "NODE_OPTIONS='--experimental-vm-modules' jest",
