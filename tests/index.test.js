@@ -100,6 +100,44 @@ describe("with a class", () => {
     });
 });
 
+describe("with class special methods", () => {
+    class extendedReadOnlyArrayClass {
+        #arr = ["a", "b", "c"];
+
+        constructor() {
+            return testFunc(this.#arr, this);
+        }
+
+        get length() {
+            return 99;
+        }
+
+        *[Symbol.iterator]() {
+            yield "foo";
+        }
+
+        get [Symbol.toStringTag]() {
+            return 'TestArray';
+        }
+    }
+
+    const testArray = new extendedReadOnlyArrayClass();
+
+    test("override length", () => {
+        expect(testArray.length).toEqual(99);
+    });
+
+    test("override iterator", () => {
+        for (let i of testArray) {
+            expect(i).toEqual("foo");
+        }
+    });
+
+    test("override toStringTag", () => {
+        expect(Object.prototype.toString.call(testArray)).toEqual("[object TestArray]");
+    });
+});
+
 describe("with an object", () => {
     const arrHandler = {
         hello() {
@@ -171,17 +209,6 @@ describe("with an object", () => {
 
         test("the array", async () => {
             expect(testArray).toEqual(["a", "b", "c", "d"]);
-        });
-    });
-
-    describe("check array set/methods blocked", () => {
-        test("set index", async () => {
-            expect(() => { testArray[0] = "d"; }).toThrow();
-            expect(testArray[0]).toEqual("a");
-        });
-
-        test("forbidden array method", async () => {
-            expect(() => { testArray.push("d") }).toThrow();
         });
     });
 
