@@ -16,6 +16,8 @@ The array can then be extended by providing an object or class containing your o
 - [Examples](#examples "Examples")
 - [Allowing Array Methods](#allowing-array-methods "Allowing Array Methods")
 
+---
+
 ## Install
 
 ```sh
@@ -102,7 +104,7 @@ class extendedReadOnlyArrayClass {
     #people = [];
 
     constructor() {
-        return makeReadOnlyArray(this.#arr, this);
+        return makeReadOnlyArray(this.#people, this);
     }
 
     addPerson(first, last, age) {
